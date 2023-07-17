@@ -2,11 +2,8 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Title from "./title";
-import Typography from "@mui/material/Typography";
-import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 
-import LoginForm from "../../components/form";
-import { Grid } from "@mui/material";
+import LoginForm from "../../components/login-form";
 
 const LoginPage = () => {
   const gradient =
@@ -17,10 +14,7 @@ const LoginPage = () => {
     display: "grid",
     placeItems: "center",
   };
-  const formContainerStyle = {
-    display: "grid",
-    placeItems: "center",
-  };
+
   return (
     <Stack direction={"row"}>
       <Container sx={titleContainerStyle}>
@@ -34,27 +28,7 @@ const LoginPage = () => {
           <Title />
         </Box>
       </Container>
-      <Container sx={formContainerStyle}>
-        <Box>
-          <Box display={"flex"} justifyContent={"center"}>
-            <LoginSharpIcon
-              sx={{
-                fontSize: "8rem",
-                color: "rgba(108, 90, 254, 1)",
-                mb: "40px",
-                mr: "30px",
-              }}
-            />
-          </Box>
-          <Box mb={6}>
-            <Typography variant="h4">Hey, Hello &#128075;</Typography>
-            <Typography variant="body2" color={"gray"}>
-              Enter The information you entered while registering
-            </Typography>
-          </Box>
-          <LoginForm />
-        </Box>
-      </Container>
+      <LoginForm />
     </Stack>
   );
 };
