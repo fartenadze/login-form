@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import { FormEvent, useState } from "react";
+import { FormEvent, Fragment, useState } from "react";
 
 import UserInfo from "./steps/userinfo";
 import BirthAndGender from "./steps/gender";
@@ -43,11 +43,14 @@ const RegisterForm = () => {
 
   const handleNext = () => {
     setCurrentStep((prev) => prev + 1);
+    console.log(formData);
   };
   const handleBack = () => {
     setCurrentStep((prev) => prev - 1);
   };
-
+  const handleReset = () => {
+    setCurrentStep(0);
+  };
   const formContainerStyle = {
     display: "grid",
     placeItems: "center",
@@ -113,35 +116,21 @@ const RegisterForm = () => {
           height: "100%",
         }}
       >
-        {fields[currentStep]}
-        <Box
-          sx={{
-            display: "flex",
-            alignSelf: "flex-end",
-            width: "100%",
-            justifyContent: "space-around",
-          }}
-        >
-          <Button
-            size="large"
-            variant="outlined"
-            disabled={currentStep === 0}
-            onClick={handleBack}
+        {currentStep === steps.length ? (
+          <Box
             sx={{
-              mr: 2,
-              color: "rgba(108, 150, 254, 1)",
-              borderColor: "rgba(108, 150, 254, 1)",
+              display: "grid",
+              placeItems: "center",
             }}
           >
-            Back
-          </Button>
-
-          {currentStep === steps.length - 1 ? (
+            <Typography mb={12}>
+              All steps completed - you&apos;re finished
+            </Typography>
             <Button
               type="submit"
               size="large"
               variant="contained"
-              onClick={handleNext}
+              onClick={handleReset}
               sx={{
                 background: "rgba(108, 150, 254, 1)",
                 ":hover": {
@@ -149,24 +138,67 @@ const RegisterForm = () => {
                 },
               }}
             >
-              Finish
+              Reset
             </Button>
-          ) : (
-            <Button
-              size="large"
-              variant="contained"
-              onClick={handleNext}
+          </Box>
+        ) : (
+          <>
+            {fields[currentStep]}
+            <Box
               sx={{
-                background: "rgba(108, 150, 254, 1)",
-                ":hover": {
-                  background: "rgba(30, 110, 254, 1)",
-                },
+                display: "flex",
+                alignSelf: "flex-end",
+                width: "100%",
+                justifyContent: "space-around",
               }}
             >
-              Next
-            </Button>
-          )}
-        </Box>
+              <Button
+                size="large"
+                variant="outlined"
+                disabled={currentStep === 0}
+                onClick={handleBack}
+                sx={{
+                  mr: 2,
+                  color: "rgba(108, 150, 254, 1)",
+                  borderColor: "rgba(108, 150, 254, 1)",
+                }}
+              >
+                Back
+              </Button>
+
+              {currentStep === steps.length - 1 ? (
+                <Button
+                  type="submit"
+                  size="large"
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{
+                    background: "rgba(108, 150, 254, 1)",
+                    ":hover": {
+                      background: "rgba(30, 110, 254, 1)",
+                    },
+                  }}
+                >
+                  Finish
+                </Button>
+              ) : (
+                <Button
+                  size="large"
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{
+                    background: "rgba(108, 150, 254, 1)",
+                    ":hover": {
+                      background: "rgba(30, 110, 254, 1)",
+                    },
+                  }}
+                >
+                  Next
+                </Button>
+              )}
+            </Box>
+          </>
+        )}
       </Box>
     </Container>
   );
