@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import { FormEvent, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -19,6 +19,7 @@ import { auth } from "../../firebase";
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   // const gradient =
   //   "linear-gradient(103deg, rgba(186, 217, 254, 1) 0%, rgba(223, 228, 248, 1) 26%, rgba(223, 199, 253, 1) 42%, rgba(193, 195, 254, 1) 64%, rgba(108, 184, 254, 1) 77%, rgba(158, 193, 236, 1) 92%)";
@@ -27,8 +28,9 @@ const LoginForm = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        const user = userCredential.user.email;
         console.log(user);
+        navigate(`/homepage/${user}`);
       })
       .catch((error) => {
         console.error(error);

@@ -15,7 +15,6 @@ import Credentials from "./steps/credentials";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useFormData } from "../../context/form-context";
 import { auth } from "../../firebase";
-import { create } from "domain";
 
 const steps = [
   "Enter Your Name",
